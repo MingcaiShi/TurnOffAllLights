@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>关灯游戏</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				width: 50px;
+				height: 50px;
+				display: inline-block;
+				background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div onclick="changeImg(1)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(2)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(3)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(4)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(5)" style="background-image:url(img/1.png)"></div>
+		<br>
+		<div onclick="changeImg(6)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(7)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(8)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(9)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(10)" style="background-image:url(img/1.png)"></div>
+		<br>
+		<div onclick="changeImg(11)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(12)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(13)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(14)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(15)" style="background-image:url(img/1.png)"></div>
+		<br>
+		<div onclick="changeImg(16)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(17)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(18)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(19)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(20)" style="background-image:url(img/1.png)"></div>
+		<br>
+		<div onclick="changeImg(21)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(22)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(23)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(24)" style="background-image:url(img/1.png)"></div>
+		<div onclick="changeImg(25)" style="background-image:url(img/1.png)"></div>
+	</body>
+	<script type="text/javascript">
+		var level = 1;
+		var openLight = 0;
+		function rand(min,max){
+			return Math.floor(Math.random()*(max-min)+min);
+		}
+		function changeLightImg(n){
+			var arr = [n];
+			if(n == 0){
+				arr.push(n+1);
+				arr.push(n+5);
+			}else if(n == 4){
+				arr.push(n-1);
+				arr.push(n+5);
+			}else if(n == 20){
+				arr.push(n+1);
+				arr.push(n-5);
+			}else if(n == 24){
+				arr.push(n-1);
+				arr.push(n-5);
+			}else if(n < 5){
+				arr.push(n+1);
+				arr.push(n-1);
+				arr.push(n+5);
+			}else if(n > 20){
+				arr.push(n+1);
+				arr.push(n-1);
+				arr.push(n-5);
+			}else if(n%5 == 0){
+				arr.push(n+1);
+				arr.push(n-5);
+				arr.push(n+5);
+			}else if(n%5 == 4){
+				arr.push(n-1);
+				arr.push(n-5);
+				arr.push(n+5);
+			}else {
+				arr.push(n-1);
+				arr.push(n+1);
+				arr.push(n-5);
+				arr.push(n+5);
+			}
+			for (var i=0; i<arr.length;i++){
+				var index = arr[i];
+				var light = document.getElementsByTagName("div")[index];
+				if (light.style.backgroundImage == 'url("img/1.png")'){
+					light.style.backgroundImage = "url(img/2.png)";
+					openLight++;
+				}else {
+					light.style.backgroundImage = "url(img/1.png)";
+					openLight--;
+				}
+			}
+		}
+		function gameBegin(){
+			for(var i=0;i<level;i++){
+				var n = rand(0,25);
+				changeLightImg(n);
+			}
+		}
+		gameBegin();
+		function changeImg(n){
+			changeLightImg(n-1);
+			if(openLight == 0){
+				alert("骚年，恭喜你通过第"+level+"关！");
+				level++;
+				gameBegin();
+			}
+		}
+	</script>
+</html>
